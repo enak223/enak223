@@ -1,6 +1,8 @@
-# <a href="https://www.linkedin.com/in/eliezerfuentes/"> Eliezer Fuentes Cybersecurity Project Portfolio 
+# <a href="https://www.linkedin.com/in/eliezerfuentes/"> Eliezer Fuentes</a> Cybersecurity Project Portfolio 
 
-I'm passionate about cybersecurity and love tackling complex challenges through hands-on projects. From vulnerability management to threat detection, these projects allow me to dive deep into the ever-evolving landscape of cybersecurity. Please feel free to check them out and see the work I’ve put into enhancing security operations and processes!
+👋 About Me
+
+I'm passionate about learning, problem-solving, and becoming a valuable part of the cybersecurity community. I'm currently working on labs and projects that showcase my technical growth, which you'll find here on my GitHub.
 
 
 ## ⚠️ Vulnerability Management Projects
