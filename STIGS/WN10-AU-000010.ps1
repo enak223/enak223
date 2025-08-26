@@ -22,43 +22,48 @@
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
-#>
-
-<#
-.STIG: WN10-AU-000010
-.Description: Configure system to audit Account Logon -> Credential Validation (Success)
+    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000010).ps1 
 #>
 
 Write-Host "🔧 Applying STIG WN10-AU-000010..." -ForegroundColor Cyan
 
-# Ensure "Force audit policy subcategory settings to override category settings" is enabled
-$lsaPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
-$lsaName = "SCENoApplyLegacyAuditPolicy"
-$lsaValue = 1
+# Ensure "Audit: Force audit policy subcategory settings..." is enabled
+$overrideKey = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
+$overrideName = "SCENoApplyLegacyAuditPolicy"
+$overrideValue = 1
 
-Write-Host "Checking 'Force subcategory settings override'..." -ForegroundColor Yellow
-$currentValue = (Get-ItemProperty -Path $lsaPath -Name $lsaName -ErrorAction SilentlyContinue).$lsaName
-if ($currentValue -ne $lsaValue) {
-    Write-Host "Enabling 'Force subcategory settings override'..." -ForegroundColor Green
-    New-ItemProperty -Path $lsaPath -Name $lsaName -Value $lsaValue -PropertyType DWord -Force | Out-Null
-    Write-Host "✔ Policy override enabled." -ForegroundColor Green
+Write-Host "Checking 'Force subcategory settings override'..."
+$currentValue = (Get-ItemProperty -Path $overrideKey -Name $overrideName -ErrorAction SilentlyContinue).$overrideName
+
+if ($currentValue -ne $overrideValue) {
+    Set-ItemProperty -Path $overrideKey -Name $overrideName -Value $overrideValue -Type DWord
+    Write-Host "✔ Enabled policy override." -ForegroundColor Green
 } else {
     Write-Host "✔ Policy override already enabled." -ForegroundColor Green
 }
 
-# Configure audit policy for Credential Validation -> Success
-Write-Host "Configuring audit policy: Account Logon -> Credential Validation (Success)..." -ForegroundColor Yellow
-auditpol /set /subcategory:"Credential Validation" /success:enable | Out-Null
+# Configure Credential Validation for Success and Failure
+Write-Host "Configuring audit policy: Account Logon -> Credential Validation (Success and Failure)..."
+auditpol /set /subcategory:"Credential Validation" /success:enable /failure:enable | Out-Null
 
 # Verification
-Write-Host "`n📋 Verification Result:" -ForegroundColor Cyan
-$result = auditpol /get /subcategory:"Credential Validation"
-Write-Host $result
+Write-Host "`n📋 Verification Result:"
+$auditResult = auditpol /get /subcategory:"Credential Validation"
+$auditParsed = $auditResult | Select-String "Credential Validation"
 
-if ($result -match "Success\s+Enabled") {
-    Write-Host "`n✅ Credential Validation success auditing is ENABLED." -ForegroundColor Green
+if ($auditParsed -match "Success and Failure") {
+    Write-Host "✅ Credential Validation is configured for Success and Failure." -ForegroundColor Green
 } else {
-    Write-Host "`nWARNING: ⚠️ Credential Validation success auditing is NOT enabled." -ForegroundColor Red
-    Write-Host "Check if domain GPO is overriding or if the system requires a reboot." -ForegroundColor Yellow
+    Write-Host "WARNING: ⚠️ Credential Validation auditing is NOT correctly configured." -ForegroundColor Yellow
+    Write-Host "Current setting: $auditParsed"
+    
+    # Check for GPO override (detect if domain-joined and possible policy application)
+    $domain = (Get-WmiObject Win32_ComputerSystem).PartOfDomain
+    if ($domain) {
+        Write-Host "`n⚠️ System is domain-joined. Group Policy may be overriding local settings." -ForegroundColor Yellow
+        Write-Host "Run: gpresult /h C:\gp.html and review Advanced Audit Policy settings."
+    }
+    Write-Host "Consider rebooting if the override key was just applied."
 }
+
+Write-Host "`n✔ STIG remediation attempt completed."
