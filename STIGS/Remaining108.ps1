@@ -7,7 +7,7 @@
     LinkedIn        : linkedin.com/in/eliezerfuentes/
     GitHub          : github.com/enak223/
     Date Created    : 2025-08-26
-    Last Modified   : 2025-08-26
+    Last Modified   : 2025-08-27
     Version         : 1.0
     CVEs            : N/A
     Plugin IDs      : N/A
@@ -22,7 +22,7 @@
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000010).ps1 
+    PS C:\> .\Remaining 108.ps1
 #>
 
 <#
