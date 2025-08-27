@@ -1,3 +1,26 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures that the maximum size of the Windows Application event log is at least 32768 KB (32 MB).
+
+.NOTES
+    Author          : Eliezer Fuentes
+    LinkedIn        : linkedin.com/in/eliezerfuentes/
+    GitHub          : github.com/enak223/
+    Date Created    : 2025-06-24
+    Last Modified   : 2025-08-26
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-AC-000005
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+#>
+
+
 # <a href="https://www.linkedin.com/in/eliezerfuentes/"> Eliezer Fuentes</a> Cybersecurity Project Portfolio 
 
 👋 About Me
@@ -9,6 +32,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 
 - **[Vulnerability Management Program Implementation](https://github.com/enak223/vulnerability-management-program)**
 - **[Programmatic Vulnerability Remediations (PowerShell and BASH)](https://github.com/enak223/programmatic-vulnerability-remediations)**
+- **[Vulneravility Mitigation (STIG)](https://github.com/enak223/enak223/tree/main/STIGS)**
 
 ## 🚨 Threat Hunting and Security Operations
 
