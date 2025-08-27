@@ -22,7 +22,7 @@
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\WN10-AC-000035.ps1 
+    PS C:\> .\WN10-AC-000035.ps1
 #>
 
 # Ensure script runs with Administrator privileges
