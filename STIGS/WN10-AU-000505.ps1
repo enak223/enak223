@@ -11,7 +11,7 @@
     Version         : 1.0
     CVEs            : N/A
     Plugin IDs      : N/A
-    STIG-ID         : WN10-AU-0005005
+    STIG-ID         : WN10-AU-000505
 
 .TESTED ON
     Date(s) Tested  : 
