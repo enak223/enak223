@@ -7,12 +7,12 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 
 ## ⚠️ Vulnerability Management Projects
 
-- **[Vulnerability Management Program Implementation](https://github.com/enak223/vulnerability-management-program)**
-- **[Programmatic Vulnerability Remediations (PowerShell and BASH) (Work in progress)](https://github.com/enak223/enak223/tree/main/STIGS)**
+- **[Vulnerability Management Program Implementation (Work in progress)](https://github.com/enak223/vulnerability-management-program)**
+- **[Programmatic Vulnerability Remediations (PowerShell and BASH)](https://github.com/enak223/enak223/tree/main/STIGS)**
 
 ## 🚨 Threat Hunting and Security Operations
 
-- **[Threat Hunting Scenario (Tor Browser Usage)](https://github.com/enak223/threat-hunting-scenario-tor)**
+- **[Threat Hunting Scenario (Tor Browser Usage) (Work in progress)](https://github.com/enak223/threat-hunting-scenario-tor)**
 
 <hr/>
 
