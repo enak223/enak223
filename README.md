@@ -8,8 +8,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 ## ⚠️ Vulnerability Management Projects
 
 - **[Vulnerability Management Program Implementation](https://github.com/enak223/vulnerability-management-program)**
-- **[Programmatic Vulnerability Remediations (PowerShell and BASH)](https://github.com/enak223/programmatic-vulnerability-remediations)**
-- **[Vulneravility Mitigation (STIG)](https://github.com/enak223/enak223/tree/main/STIGS)**
+- **[Programmatic Vulnerability Remediations (PowerShell and BASH)](https://github.com/enak223/enak223/tree/main/STIGS)**
 
 ## 🚨 Threat Hunting and Security Operations
 
