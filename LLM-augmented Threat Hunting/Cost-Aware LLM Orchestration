@@ -1,0 +1,62 @@
+"""
+================================================================================
+ Title:          Azure Log Analytics Threat Hunting Helper
+ Description:    This Python script queries Azure Log Analytics using the 
+                 Azure Monitor SDK, estimates OpenAI API token usage and costs, 
+                 and assists with automated threat hunting by analyzing log data.
+
+ Author:         Eliezer Fuentes
+ LinkedIn:       https://linkedin.com/in/eliezerfuentes/
+ GitHub:         https://github.com/enak223/
+ Date Created:   2025-09-27
+ Last Modified:  2025-09-27
+ Version:        1.0
+ CVEs:           N/A
+ Plugin IDs:     N/A
+
+ Tested On:
+   Date(s) Tested:  
+   Tested By:       
+   Systems Tested:  
+   Python Version:  3.10+
+   OS:              Kali Linux / Windows
+
+ Usage:
+   This script requires the following environment variables:
+     - OPENAI_API_KEY              (Your OpenAI API key)
+     - LOG_ANALYTICS_WORKSPACE_ID  (Your Azure Log Analytics Workspace ID)
+
+   -------------------------------
+   How to set environment variables
+   -------------------------------
+
+   Windows PowerShell (temporary):
+     PS> setx OPENAI_API_KEY "sk-yourapikey"
+     PS> setx LOG_ANALYTICS_WORKSPACE_ID "your-workspace-id"
+
+   Windows PowerShell (current session only):
+     PS> $env:OPENAI_API_KEY="sk-yourapikey"
+     PS> $env:LOG_ANALYTICS_WORKSPACE_ID="your-workspace-id"
+
+   Linux / macOS (temporary, session only):
+     $ export OPENAI_API_KEY="sk-yourapikey"
+     $ export LOG_ANALYTICS_WORKSPACE_ID="your-workspace-id"
+
+   Linux / macOS (permanent, add to ~/.bashrc or ~/.zshrc):
+     export OPENAI_API_KEY="sk-yourapikey"
+     export LOG_ANALYTICS_WORKSPACE_ID="your-workspace-id"
+     
+   -------------------------------
+   Running the script
+   -------------------------------
+   Example:
+     $ python3 threat_hunt.py
+
+ References:
+   - OpenAI API Keys: https://platform.openai.com/settings/organization/api-keys
+   - OpenAI Models:   https://platform.openai.com/docs/models/compare
+   - Azure CLI:       https://learn.microsoft.com/en-us/cli/azure/
+================================================================================
+"""
+
+
