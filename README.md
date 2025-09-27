@@ -5,16 +5,16 @@ About Me
 I'm passionate about learning, problem-solving, and becoming a valuable part of the cybersecurity community. I'm currently working on labs and projects that showcase my technical growth, which you'll find here on my GitHub.
 
 
-## ⚠️ Vulnerability Management Projects
+## :warning: Vulnerability Management Projects
 
 - **[Vulnerability Management Program Implementation (Work in progress)](https://github.com/enak223/vulnerability-management-program)**
 - **[Programmatic Vulnerability Remediations STIG (PowerShell and BASH)](https://github.com/enak223/enak223/tree/main/STIGS)**
 
-## 🚨 Threat Hunting and Security Operations
+## :rotating_light: Threat Hunting and Security Operations
 
 - **[Threat Hunting Scenario (Tor Browser Usage) (Work in progress)](https://github.com/enak223/threat-hunting-scenario-tor)**
 
-## :fire: LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)
+## :robot: LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)
 
 - **[LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)](https://github.com/enak223/threat-hunting-scenario-tor)**
 
