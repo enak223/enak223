@@ -1,6 +1,6 @@
 # <a href="https://www.linkedin.com/in/eliezerfuentes/"> Eliezer Fuentes</a> Cybersecurity Project Portfolio 
 
-👋 About Me
+About Me
 
 I'm passionate about learning, problem-solving, and becoming a valuable part of the cybersecurity community. I'm currently working on labs and projects that showcase my technical growth, which you'll find here on my GitHub.
 
@@ -14,7 +14,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 
 - **[Threat Hunting Scenario (Tor Browser Usage) (Work in progress)](https://github.com/enak223/threat-hunting-scenario-tor)**
 
-## 🚨 LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)
+## :fire: LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)
 
 - **[LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)](https://github.com/enak223/threat-hunting-scenario-tor)**
 
