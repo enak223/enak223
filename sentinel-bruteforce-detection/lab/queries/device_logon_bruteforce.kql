@@ -1,0 +1,8 @@
+// Brute-force attempt detection: same RemoteIP targeting same DeviceName >= 10 fails in last 5 hours
+let lookback = 5h;
+DeviceLogonEvents
+| where ActionType == "LogonFailed" and TimeGenerated > ago(lookback)
+| summarize EventCount = count(), DistinctAccounts = dcount(AccountName) by RemoteIP, DeviceName
+| where EventCount >= 10
+| project RemoteIP, DeviceName, EventCount, DistinctAccounts
+| order by EventCount desc
