@@ -1,0 +1,13 @@
+// Check whether any of the failed attempts resulted in a successful login (same IP, same device, same account)
+let lookback = 5h;
+let failed = DeviceLogonEvents
+| where ActionType == "LogonFailed" and TimeGenerated > ago(lookback)
+| summarize FailedCount = count(), FirstFail = min(TimeGenerated), LastFail = max(TimeGenerated) by RemoteIP, DeviceName, AccountName;
+let success = DeviceLogonEvents
+| where ActionType == "LogonSuccess" and TimeGenerated > ago(lookback)
+| project DeviceName, RemoteIP, AccountName, SuccessTime = TimeGenerated;
+failed
+| join kind=leftouter success on RemoteIP, DeviceName, AccountName
+| where FailedCount >= 10
+| project RemoteIP, DeviceName, AccountName, FailedCount, FirstFail, LastFail, SuccessTime
+| order by FailedCount desc
