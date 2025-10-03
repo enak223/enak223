@@ -1,0 +1,19 @@
+// Synthetic data to test the rule without creating real failed logons
+let nowt = now();
+let events = datatable(TimeGenerated: datetime, ActionType: string, RemoteIP: string, DeviceName: string, AccountName: string)
+[
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "alice",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "bob",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "carol",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "dave",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "eve",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "frank",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "grace",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "heidi",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "ivan",
+    nowt - 1h, "LogonFailed", "203.0.113.10", "vm-test-1", "judy"
+];
+events
+| where ActionType == "LogonFailed" and TimeGenerated > ago(5h)
+| summarize EventCount = count() by RemoteIP, DeviceName
+| where EventCount >= 10
