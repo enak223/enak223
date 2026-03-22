@@ -14,6 +14,10 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 
 - **[Threat Hunting Scenario (Tor Browser Usage) (Work in progress)](https://github.com/enak223/threat-hunting-scenario-tor)**
 
+## Incident Ivestigations
+
+- **[Incident Report (Ransomeare)](https://github.com/enak223/threat-hunting-scenario-tor)**
+
 ## LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)
 
 - **[LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)](https://github.com/enak223/enak223/tree/main/LLM-augmented%20Threat%20Hunting)**
