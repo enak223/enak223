@@ -1,0 +1,494 @@
+ 
+Akira Ransomware Attack — Full Investigation Findings
+Case ID: INC-1288
+Date of Report: January 30, 2026
+Classification: CRITICAL (P1)
+Threat Actor: AKIRA Ransomware Group
+Incident Window: January 7, 2026 – January 27, 2026
+Victim ID (Threat Actor): 813R-QWJM-XKIJ
+ 
+⚠ CRITICAL
+This document contains highly sensitive forensic findings from an active ransomware incident. Distribute only to authorized incident response personnel, legal counsel, and executive leadership.
+
+ 
+
+ 
+
+
+
+
+
+
+SECTION 1: EXECUTIVE SUMMARY
+
+ 
+1.1 Incident Overview
+Incident ID
+INC-1288
+Incident Type
+Ransomware (Double Extortion)
+Threat Actor
+Akira Ransomware Group
+Severity
+CRITICAL (P1) — Core systems encrypted, data exfiltrated
+Date Detected
+January 27, 2026
+Incident Window
+January 7, 2026 – January 27, 2026 (~20 days dwell time)
+Affected Hosts
+AS-PC2, AS-SRV
+Compromised User
+david.mitchell (AS-PC2)
+Encrypted Extension
+.akira
+Status
+Contained — Recovery in Progress
+
+ 
+
+
+
+1.2 Key Findings
+The organization was compromised by the Akira ransomware group in a sophisticated, multi-stage attack spanning approximately 20 days. The threat actor leveraged a pre-staged remote access tool (AnyDesk) from a prior intrusion — consistent with a 'broker' resale model — to re-enter the environment. Key findings are as follows:
+ 
+•       Initial Access: AnyDesk.exe was pre-staged in C:\Users\Public\ on AS-PC2 and used from external IP 88.97.164.155 to establish unauthorized remote access under the compromised account david.mitchell.
+•       Credential Theft: The attacker enumerated LSASS via 'tasklist | findstr lsass' and accessed the named pipe \\Device\\NamedPipe\\lsass to steal credentials.
+•       Defense Evasion: Security controls were disabled via kill.bat and a direct registry modification (DisableAntiSpyware = 1) at 21:03:42 on January 19, 2026.
+•       C2 Beacon: A custom beacon (wsync.exe) was deployed to C:\ProgramData\ and communicated with two C2 servers at 104.21.30.237 and 172.67.174.46 via cdn.cloud-endpoint.net.
+•       Lateral Movement: The attacker moved from AS-PC2 to AS-SRV using the as.srv.administrator account after network scanning with Advanced IP Scanner.
+•       Data Exfiltration: Data was compressed into exfil_data.zip using st.exe on AS-SRV and exfiltrated prior to encryption, constituting a double-extortion attack.
+•       Ransomware Deployment: The Akira ransomware binary (updater.exe) was staged on AS-SRV via PowerShell and executed at 22:18:33 on January 27, 2026. VSS shadow copies were deleted to prevent recovery.
+•       Anti-Forensics: clean.bat was executed post-encryption to delete the ransomware binary.
+ 1.3 Immediate Actions Taken
+•       Isolation of compromised hosts AS-PC2 and AS-SRV from the network.
+•       Revocation of david.mitchell and as.srv.administrator account credentials.
+•       Engagement of threat intelligence to correlate Akira IoCs with known campaign artifacts.
+•       Blocking of all identified C2 domains and IP addresses at the perimeter firewall.
+•       Preservation of forensic evidence (memory dumps, disk images, KQL query results) for legal and insurance purposes.
+ 1.4 Stakeholder Impact
+•       Business operations on AS-SRV (primary server) disrupted due to full file encryption with .akira extension.
+•       Potential exfiltration of sensitive corporate data via exfil_data.zip — extent of data loss under investigation.
+•       Negotiation portal identified on TOR network: akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion.
+•       Financial exposure from ransom demand, regulatory fines, and reputational risk is being assessed by legal and finance teams. 
+
+
+SECTION 2: TECHNICAL TIMELINE
+
+ 
+Date / Time (UTC)
+Phase
+Event
+Jan 07, 2026 ~15:45
+Initial Access
+AnyDesk.exe executed from C:\Users\Public\ on AS-PC2 (pre-staged from prior intrusion)
+Jan 07, 2026 ~15:45
+Initial Access
+Inbound RDP/AnyDesk session from attacker IP 88.97.164.155 via relay relay-0b975d23.net.anydesk.com
+Jan 07, 2026 ~16:00
+Credential Access
+tasklist | findstr lsass executed on AS-PC2 under account david.mitchell
+Jan 07, 2026 ~16:00
+Credential Access
+Named pipe \Device\NamedPipe\lsass accessed — LSASS credential dumping performed
+Jan 14–19, 2026
+C2 Establishment
+wsync.exe beacon downloaded from sync.cloud-endpoint.net and deployed to C:\ProgramData\
+Jan 19, 2026 21:03:42
+Defense Evasion
+Registry key DisableAntiSpyware set to 1 — Windows Defender disabled
+Jan 19, 2026 ~21:00
+Defense Evasion
+kill.bat executed — security controls disabled (SHA256: 0e7da57d...)
+Jan 15–19, 2026
+Reconnaissance
+Advanced IP Scanner (scan.exe) deployed and executed on AS-PC2; internal IPs 10.1.0.183 enumerated
+Jan 15–19, 2026
+Tool Transfer
+bitsadmin used (LOLBIN) then fallback to PowerShell Invoke-WebRequest to download tooling from cloud-endpoint.net
+Jan 19–27, 2026
+Lateral Movement
+as.srv.administrator credentials used to authenticate to AS-SRV
+Jan 27, 2026
+Exfiltration
+st.exe compresses data into exfil_data.zip on AS-SRV and exfiltrates to attacker infrastructure
+Jan 27, 2026 ~22:00
+Ransomware Deploy
+powershell.exe stages updater.exe (Akira ransomware) on AS-SRV
+Jan 27, 2026 22:18:33
+Ransomware Deploy
+updater.exe executed; ransom note dropped; .akira extension appended to files
+Jan 27, 2026 ~22:20
+Anti-Forensics
+vssadmin delete shadows /all /quiet executed; VSS backups destroyed
+Jan 27, 2026 ~22:25
+Anti-Forensics
+clean.bat executed; ransomware binary self-deleted
+
+
+ 
+SECTION 3: TECHNICAL ANALYSIS
+
+ 
+3.1 Initial Access — Pre-Staged AnyDesk (MITRE T1219)
+The threat actor leveraged a remote monitoring and management (RMM) tool, AnyDesk, which had been pre-positioned on AS-PC2 during an earlier intrusion ('The Broker' campaign). This is a hallmark of ransomware-as-a-service (RaaS) operations where initial access brokers sell footholds to ransomware affiliates.
+
+ 
+Tool
+AnyDesk.exe
+Execution Path
+C:\Users\Public\AnyDesk.exe (anomalous — expected path: Program Files)
+Attacker External IP
+88.97.164.155
+Relay Domain
+relay-0b975d23.net.anydesk.com
+Compromised Account
+david.mitchell
+Logon Type
+RemoteInteractive
+
+ 
+3.2 Credential Access — LSASS Dumping (MITRE T1003.001)
+Following initial access, the attacker performed targeted reconnaissance of running processes to locate LSASS, then extracted credentials via the named pipe interface — a technique consistent with in-memory credential theft without writing lsass.dmp to disk.
+ 
+Enumeration Command
+tasklist | findstr lsass
+Named Pipe Accessed
+\Device\NamedPipe\lsass
+Device
+AS-PC2
+Objective
+Harvest credentials for lateral movement to AS-SRV
+
+ 
+ANALYST NOTE
+The use of named pipe access rather than direct procdump suggests the attacker used a custom in-memory tool (possibly Mimikatz or a derivative) to avoid writing artifacts to disk.
+
+ 
+3.3 Defense Evasion (MITRE T1562.001 / T1112)
+Prior to ransomware deployment, the threat actor executed a two-pronged defense evasion strategy: deploying a batch script (kill.bat) to terminate security processes, and directly modifying the Windows registry to disable Windows Defender.
+ 
+Evasion Script
+kill.bat
+kill.bat SHA256
+0e7da57d92eaa6bda9d0bbc24b5f0827250aa42f295fd056ded50c6e3c3fb96c
+Registry Key Modified
+HKLM\...\Windows Defender\DisableAntiSpyware
+Registry Value Set
+DisableAntiSpyware = 1
+Registry Modification Time
+21:03:42 (January 19, 2026)
+
+ 
+
+
+
+
+
+3.4 Command & Control — Custom Beacon wsync.exe (MITRE T1071)
+After the pre-staged AnyDesk beacon showed instability, the attacker deployed a custom C2 beacon masquerading as a Windows synchronization utility.
+ 
+Beacon Filename
+wsync.exe
+Deployment Directory
+C:\ProgramData\
+Download Source
+sync.cloud-endpoint.net
+Staging Domain
+cdn.cloud-endpoint.net
+C2 IP #1
+104.21.30.237
+C2 IP #2
+172.67.174.46
+Original Beacon SHA256
+66b876c52946f4aed47dd696d790972ff265b6f4451dab54245bc4ef1206d90b
+Replacement Beacon SHA256
+0072ca0d0adc9a1b2e1625db4409f57fc32b5a09c414786bf08c4d8e6a073654
+
+ 
+ANALYST NOTE
+Two distinct SHA256 hashes for wsync.exe indicate the attacker replaced the beacon mid-operation — likely after detecting instability or anticipating detection. Both hashes should be IOC-shared across the threat intelligence community.
+
+ 
+3.5 Reconnaissance (MITRE T1046 / T1135)
+After establishing stable C2, the attacker deployed Advanced IP Scanner to map the internal network and identify lateral movement targets.
+ 
+Scanner Binary
+scan.exe (Advanced IP Scanner)
+Scanner SHA256
+26d5748ffe6bd95e3fee6ce184d388a1a681006dc23a0f08d53c083c593c193b
+Execution Account
+david.mitchell
+Execution Args
+/portable "C:/Users/david.mitchell/Downloads/" /lng en_us
+Internal IPs Enumerated
+10.1.0.183
+Enumeration Method
+Network share enumeration via advanced_ip_scanner.exe
+
+ 3.6 Tool Transfer (MITRE T1197 / T1059.001)
+Tools were downloaded via a two-step process, first attempting the built-in Windows bitsadmin utility (LOLBIN), then falling back to PowerShell when bitsadmin encountered issues. This demonstrates operational adaptability.
+ 
+Primary Method
+bitsadmin (Living-off-the-Land Binary)
+Fallback Method
+PowerShell Invoke-WebRequest
+Payload Source
+sync.cloud-endpoint.net
+
+ 3.7 Lateral Movement (MITRE T1078)
+Following credential harvesting and network mapping, the attacker pivoted to the primary server (AS-SRV) using administrator-level credentials obtained during LSASS dumping.
+ 
+Source Host
+AS-PC2
+Destination Host
+AS-SRV
+Account Used
+as.srv.administrator
+Technique
+Valid Accounts — Local Account (T1078.003)
+
+ 
+3.8 Exfiltration (MITRE T1560 / T1041)
+Prior to encryption — consistent with Akira's documented double-extortion model — data was compressed and exfiltrated. Failure to pay the ransom will likely result in data publication on Akira's TOR-based leak site.
+ 
+Staging Tool
+st.exe
+st.exe SHA256
+512a1f4ed9f512572608c729a2b89f44ea66a40433073aedcd914bd2d33b7015
+Archive Created
+exfil_data.zip
+Archive Location
+AS-SRV
+Exfiltration Account
+as.srv.administrator
+
+ 3.9 Ransomware Deployment (MITRE T1486 / T1490)
+The Akira ransomware binary was disguised as a legitimate Windows update utility and deployed on the server via PowerShell. Volume Shadow Copies were destroyed to prevent file recovery before the encryption routine completed.
+ 
+Ransomware Filename
+updater.exe (masquerading as Windows updater)
+Ransomware SHA256
+e609d070ee9f76934d73353be4ef7ff34b3ecc3a2d1e5d052140ed4cb9e4752b
+Staging Process
+powershell.exe
+Target Host
+AS-SRV
+Encrypted Extension
+.akira
+Ransom Note Dropped By
+updater.exe
+Encryption Start Time
+22:18:33 (January 27, 2026)
+VSS Deletion Command
+vssadmin delete shadows /all /quiet
+Cleanup Script
+clean.bat (deleted updater.exe post-execution)
+
+ 
+
+ 
+SECTION 4: INDICATORS OF COMPROMISE (IoCs)
+
+ 
+4.1 File Hashes (SHA256)
+Filename
+SHA256
+Description
+kill.bat
+0e7da57d92eaa6bda9d0bbc24b5f4827250aa42f295fd056ded50c6e3c3fb96c
+Defense evasion — kills security processes
+wsync.exe (v1)
+66b876c52946f4aed47dd696d790972ff265b6f4451dab54245bc4ef1206d90b
+Original C2 beacon
+wsync.exe (v2)
+0072ca0d0adc9a1b2e1625db4409f57fc32b5a09c414786bf08c4d8e6a073654
+Replacement C2 beacon
+scan.exe
+26d5748ffe6bd95e3fee6ce184d388a1a681006dc23a0f08d53c083c593c193b
+Advanced IP Scanner — network recon
+st.exe
+512a1f4ed9f512572608c729a2b89f44ea66a40433073aedcd914bd2d33b7015
+Data staging / compression tool
+updater.exe
+e609d070ee9f76934d73353be4ef7ff34b3ecc3a2d1e5d052140ed4cb9e4752b
+Akira ransomware binary
+
+ 4.2 Network Indicators
+Indicator
+Type
+Purpose
+sync.cloud-endpoint.net
+Domain
+Payload download / C2 tooling distribution
+cdn.cloud-endpoint.net
+Domain
+Ransomware staging / C2 beacon source
+104.21.30.237
+IP Address
+C2 server #1
+172.67.174.46
+IP Address
+C2 server #2
+88.97.164.155
+IP Address
+Attacker external IP (AnyDesk session origin)
+relay-0b975d23.net.anydesk.com
+Domain
+AnyDesk relay — initial access persistence
+akiral2iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad.onion
+TOR Onion
+Akira ransom negotiation portal
+
+ 4.3 Behavioral Indicators
+Indicator
+MITRE ATT&CK
+Evidence
+AnyDesk.exe in C:\Users\Public\
+T1219
+Execution from non-standard path on AS-PC2
+tasklist | findstr lsass
+T1057
+Process hunting preceding credential theft
+\Device\NamedPipe\lsass access
+T1003.001
+In-memory credential dumping via named pipe
+DisableAntiSpyware = 1 in registry
+T1112
+Defender disabled via registry tamper
+vssadmin delete shadows /all /quiet
+T1490
+Shadow copy deletion pre-encryption
+updater.exe outside System32/Program Files
+T1036
+Masquerading as legitimate Windows process
+.akira extension on encrypted files
+T1486
+File encryption by ransomware
+
+
+
+SECTION 5: IMPACT ANALYSIS
+
+ 
+5.1 Affected Systems
+Hostname
+Role
+Impact
+AS-PC2
+Workstation (david.mitchell)
+Initial access vector; credential theft; recon staging; C2 beacon host
+AS-SRV
+Primary Server
+Fully encrypted with .akira; data exfiltrated; VSS destroyed; ransom note deployed
+
+ 
+5.2 Data Exposure Assessment
+HIGH RISK
+Data exfiltration confirmed prior to encryption. The archive exfil_data.zip was created on AS-SRV by as.srv.administrator using st.exe. Contents and destination have not yet been determined. Assume all data on AS-SRV is compromised.
+
+ 
+5.3 Business Impact
+•       AS-SRV is offline — any services dependent on this host are disrupted until recovery is complete.
+•       Ransom negotiation portal is active — legal and executive leadership must determine payment/non-payment policy immediately.
+•       Regulatory notification may be required depending on data types stored on AS-SRV (assess GDPR, HIPAA, PCI-DSS obligations within 24-72 hours).
+•       Reputational risk if Akira publishes exfiltrated data on their leak site.
+
+ 
+SECTION 6: RESPONSE & RECOVERY
+
+ 6.1 Immediate Containment Actions
+•       Network isolation of AS-PC2 and AS-SRV — removed from production VLAN.
+•       Disabled accounts: david.mitchell and as.srv.administrator across all domain controllers.
+•       Firewall rules added blocking 104.21.30.237, 172.67.174.46, 88.97.164.155, cloud-endpoint.net.
+•       AnyDesk blocked at endpoint and perimeter level.
+ 
+6.2 Eradication Steps
+•       Kill.bat, wsync.exe, scan.exe, st.exe, and updater.exe must be hunted across all endpoints — not only confirmed compromised hosts.
+•       Registry key HKLM\...\Windows Defender\DisableAntiSpyware must be set back to 0 and verified post-reboot.
+•       Full reimaging of AS-PC2 and AS-SRV recommended — do not attempt in-place recovery due to persistence mechanisms.
+•       Audit all accounts for privilege escalation post-credential theft. Rotate ALL credentials environment-wide.
+ 
+6.3 Recovery Steps
+•       Validate backup integrity for AS-SRV before restoration — confirm backups pre-date January 7, 2026.
+•       If no pre-compromise backups are available, legal must assess negotiation options and data recovery feasibility.
+•       Re-deploy AS-SRV from a clean image once environment is declared threat-free.
+•       Monitor for reinfection — Akira is known to re-enter environments via overlooked persistence mechanisms.
+ 
+6.4 Post-Incident Monitoring
+•       Deploy enhanced EDR telemetry with named pipe monitoring, registry write auditing, and LSASS access alerting.
+•       Implement network-level detection for known cloud-endpoint.net domains and newly observed TLDs (.tech, .site, .top, .xyz).
+•       Add SHA256 hashes from Section 4.1 to EDR block-list and SIEM alerting rules.
+•       Hunt for additional staging artifacts using KQL queries provided in Appendix A.
+
+ 
+SECTION 7: RECOMMENDATIONS
+
+ 
+7.1 Immediate (0-7 Days)
+•       Mandatory enterprise-wide credential rotation — all accounts must be considered compromised.
+•       Deploy MFA on all remote access, VPN, and RDP entry points — AnyDesk and similar RMM tools must require MFA.
+•       Implement application allowlisting to prevent execution of unsigned binaries from AppData, ProgramData, and Public directories.
+•       Conduct threat hunt across all endpoints for IoCs listed in Section 4. 
+7.2 Short-Term (7-30 Days)
+•       Implement Privileged Access Workstations (PAW) for all administrator accounts to prevent lateral movement using harvested credentials.
+•       Enforce LSASS Protection (RunAsPPL) via Group Policy to prevent credential dumping via named pipe.
+•       Restrict bitsadmin and PowerShell Invoke-WebRequest to approved hosts/users only via AppLocker or WDAC.
+•       Deploy honeypot accounts and shares to detect future lateral movement attempts.
+ 7.3 Strategic (30-90 Days)
+•       Evaluate Zero Trust Architecture — lateral movement from PC2 to SRV relied on flat network topology with shared credentials.
+•       Conduct a formal tabletop exercise simulating a ransomware attack using the Akira TTPs documented in this report.
+•       Establish an immutable, air-gapped backup solution — VSS alone is insufficient against modern ransomware.
+•       Join an ISAC relevant to your sector for Akira IoC sharing and advance warning of future campaigns.
+
+
+
+
+
+
+APPENDIX A: KEY KQL QUERIES USED IN INVESTIGATION
+
+ 
+Ransom Note Discovery
+DeviceFileEvents | where FileName has_any ("readme","restore","recover","decrypt") | project TimeGenerated, DeviceName, FileName, FolderPath
+ 
+C2 Beacon Network Activity
+DeviceNetworkEvents | where InitiatingProcessFileName contains "wsync.exe" | where RemoteUrl has_any (".tech",".site",".top",".xyz",".online",".net") | project TimeGenerated, DeviceName, RemoteUrl, RemoteIP
+ 
+Defense Evasion — Registry Tampering
+DeviceRegistryEvents | where RegistryValueName == "DisableAntiSpyware" | where RegistryValueData == "1" | project TimeGenerated, DeviceName, RegistryKey, InitiatingProcessCommandLine
+ 
+Attacker IP via AnyDesk
+DeviceNetworkEvents | where InitiatingProcessFileName has "anydesk" | where RemoteIPType == "Public" | project TimeGenerated, DeviceName, RemoteIP, RemoteUrl | summarize count() by RemoteIP | order by count_ desc
+ 
+Full Scope — Compromised Hosts
+union DeviceProcessEvents, DeviceFileEvents, DeviceNetworkEvents | where InitiatingProcessFileName has_any   ("anydesk","wsync","scan","updater","st.exe")   or FileName has_any ("wsync","scan","updater","st.exe") | summarize by DeviceName 
+
+
+APPENDIX B: AKIRA RANSOMWARE — THREAT ACTOR PROFILE
+
+
+Akira is a prolific ransomware-as-a-service (RaaS) group active since early 2023. They are known for targeting small-to-medium enterprises across multiple sectors and operate a double-extortion model, combining file encryption with data theft and publication threats.
+ 
+Group Name
+Akira
+Active Since
+Early 2023
+Extortion Model
+Double extortion (encrypt + exfiltrate)
+Encrypted Extension
+.akira
+Negotiation Method
+TOR-based victim portal (unique ID per victim)
+Typical Initial Access
+Purchased access from brokers, VPN exploitation, phishing
+Known TTPs
+AnyDesk/RMM abuse, LSASS dumping, Defender tampering, VSS deletion
+Threat Level
+HIGH — active, prolific, professional operation
+
+
+
+______________________________________________________________________________________________
+ END OF INCIDENT RESPONSE REPORT — INC-1288
+CONFIDENTIAL — FOR AUTHORIZED DISTRIBUTION ONLY
+
