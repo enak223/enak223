@@ -13,14 +13,13 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 ## Threat Hunting and Security Operations
 
 - **[Agentic AI for Security](https://github.com/enak223/agentic-ai-for-security/)**
-
-## Incident Ivestigations
+- **[LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)](https://github.com/enak223/enak223/tree/main/LLM-augmented%20Threat%20Hunting)**
+  
+## Incident Investigations
 
 - **[Incident Report (Ransomware)](https://github.com/enak223/enak223/blob/main/Incident%20Reports/Indident%3A%201288%20-%20Ransomware%20Group))**
 
-## LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)
 
-- **[LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)](https://github.com/enak223/enak223/tree/main/LLM-augmented%20Threat%20Hunting)**
 
 <hr/>
 
