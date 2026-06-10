@@ -17,7 +17,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
   
 ## Incident Investigations
 
-- **[Incident Report (Ransomware)](https://github.com/enak223/enak223/blob/main/Incident%20Reports/Indident%3A%201288%20-%20Ransomware%20Group))**
+- **[Incident Report (Ransomware)](https://github.com/enak223/enak223/blob/main/Incident%20Reports/Indident%3A%201288%20-%20Ransomware%20Group)**
 
 
 
