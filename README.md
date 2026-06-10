@@ -12,7 +12,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 
 ## Threat Hunting and Security Operations
 
-- **[Threat Hunting](https://github.com/enak223/agentic-ai-for-security/tree/main)**
+- **[Threat Hunting](https://github.com/enak223/agentic-ai-for-security/)**
 
 ## Incident Ivestigations
 
