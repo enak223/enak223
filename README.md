@@ -12,7 +12,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 
 ## Threat Hunting and Security Operations
 
-- **[Threat Hunting Scenario (Tor Browser Usage) (Work in progress)](https://github.com/enak223/threat-hunting-scenario-tor)**
+- **[Threat Hunting Scenario (Tor Browser Usage) (Work in progress)](https://github.com/enak223/agentic-ai-for-security/tree/main)**
 
 ## Incident Ivestigations
 
