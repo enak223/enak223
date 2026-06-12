@@ -14,7 +14,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 
 - **[Agentic AI for Security](https://github.com/enak223/agentic-ai-for-security/)**
 - **[GhostNet ](https://github.com/enak223/project-ghostnet/)**
-- **[Project NullByte](https://github.com/enak223/project-ghostnet/)**
+- **[Project NullByte](https://github.com/enak223/project-nullbyte)**
 - **[LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)](https://github.com/enak223/enak223/tree/main/LLM-augmented%20Threat%20Hunting)**
   
 ## Incident Investigations
