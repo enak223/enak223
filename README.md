@@ -7,6 +7,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 
 ## Vulnerability Management Projects
 
+- **[Project CVETriage](https://github.com/enak223/cvetriage)**
 - **[Programmatic Vulnerability Remediations STIG (PowerShell and BASH)](https://github.com/enak223/enak223/tree/main/STIGS)**
 - **[Vulnerability Management Program Implementation (Work in progress)](https://github.com/enak223/vulnerability-management-program)**
 
@@ -15,7 +16,6 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 - **[Agentic AI for Security](https://github.com/enak223/agentic-ai-for-security/)**
 - **[GhostNet ](https://github.com/enak223/project-ghostnet/)**
 - **[Project NullByte](https://github.com/enak223/project-nullbyte)**
-- **[Project CVETriage](https://github.com/enak223/cvetriage)**
 - **[LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)](https://github.com/enak223/enak223/tree/main/LLM-augmented%20Threat%20Hunting)**
   
 ## Incident Investigations
