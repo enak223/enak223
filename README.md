@@ -2,7 +2,8 @@
 
 About Me
 
-I'm passionate about learning, problem-solving, and becoming a valuable part of the cybersecurity community. I'm currently working on labs and projects that showcase my technical growth, which you'll find here on my GitHub.
+I'm a cybersecurity professional focused on threat detection, vulnerability management, and SOC automation. I build hands-on projects that mirror enterprise environments — spanning SIEMs, cloud security pipelines, AI-assisted triage, and MITRE ATT&CK-mapped detection engineering. Everything here is built from scratch, documented, and deployed in a real homelab.
+Always learning, always shipping.
 
 
 ## Vulnerability Management Projects
