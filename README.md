@@ -8,6 +8,7 @@ I'm passionate about learning, problem-solving, and becoming a valuable part of 
 ## Vulnerability Management Projects
 
 - **[Project CVETriage](https://github.com/enak223/cvetriage)**
+- **[Project Project Watchtower](https://github.com/enak223/project-watchtower)**
 - **[Programmatic Vulnerability Remediations STIG (PowerShell and BASH)](https://github.com/enak223/enak223/tree/main/STIGS)**
 - **[Vulnerability Management Program Implementation (Work in progress)](https://github.com/enak223/vulnerability-management-program)**
 
