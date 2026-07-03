@@ -19,7 +19,7 @@ Always learning, always shipping.
 - **[Project GhostNet ](https://github.com/enak223/project-ghostnet/)**
 - **[Project NullByte](https://github.com/enak223/project-nullbyte)**
 - **[Project Tripwire](https://github.com/enak223/project-tripwire)**
-- **[Project Casefile](https://github.com/enak223/project-casefile)
+- **[Project Casefile](https://github.com/enak223/project-casefile)**
 - **[LLM-augmented Threat Hunting Pipeline (part of AI-powered Cybersecurity / LLMOps)](https://github.com/enak223/enak223/tree/main/LLM-augmented%20Threat%20Hunting)**
   
 ## Incident Investigations
