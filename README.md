@@ -13,6 +13,11 @@ Always learning, always shipping.
 - **[Programmatic Vulnerability Remediations STIG (PowerShell and BASH)](https://github.com/enak223/enak223/tree/main/STIGS)**
 - **[Vulnerability Management Program Implementation (Work in progress)](https://github.com/enak223/vulnerability-management-program)**
 
+## Detection Engineering and Purple Teaming
+
+- [Project Sparring](https://github.com/enak223/project-sparring) — Continuous adversary emulation and detection coverage scoring (Caldera → Sentinel/Wazuh → Claude gap reports)
+- [Project Tripwire](https://github.com/enak223/project-tripwire) — Custom Wazuh detection rules mapped to MITRE ATT&CK
+
 ## Threat Hunting and Security Operations
 
 - **[Agentic AI for Security](https://github.com/enak223/agentic-ai-for-security/)**
