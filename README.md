@@ -15,8 +15,8 @@ Always learning, always shipping.
 
 - **[Project Casefile](https://github.com/enak223/project-casefile)** — SOC automation pipeline: Wazuh → n8n → Claude L1 triage → DFIR-IRIS, with human-approved active response
 - **[Project GhostNet](https://github.com/enak223/project-ghostnet)** — Passive network baselining and anomaly detection with Zeek, Suricata, and OTX threat intel
-- **[Project NullByte](https://github.com/enak223/project-nullbyte)** — Attack surface discovery and AI-assisted CVE triage from live Nmap scans
-- **[Project Huntsman](https://github.com/enak223/huntsman) — AI threat hunter agent: Wazuh + n8n + LLM benchmarking (Claude, Gemini, GPT)
+- **[Project NullByte](https://github.com/enak223/project-nullbyte) — Attack surface discovery and AI-assisted CVE triage from live Nmap scans
+- [Project Huntsman](https://github.com/enak223/huntsman) — AI threat hunter agent: Wazuh + n8n + LLM benchmarking (Claude, Gemini, GPT)
 - **[LLM-augmented Threat Hunting Pipeline](https://github.com/enak223/enak223/tree/main/LLM-augmented%20Threat%20Hunting)** — LLM-assisted hunting across security telemetry
 
 ## Incident Investigations
