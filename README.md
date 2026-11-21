@@ -22,6 +22,7 @@ Always learning, always shipping.
 ## Incident Investigations
 
 - **[Incident Report (Ransomware)](https://github.com/enak223/enak223/blob/main/Incident%20Reports/Indident%3A%201288%20-%20Ransomware%20Group)** — Full investigation writeup of a simulated ransomware incident
+- **[MySQL Honeypot — Live Ransom Breach](https://github.com/enak223/mysql-honeypot-live-breach)** — Real internet-sourced MySQL ransomware breach: KQL threat hunt, incident report, DFIR host-compromise diff, and recovery
 
 ## Vulnerability Management
 
