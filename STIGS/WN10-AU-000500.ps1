@@ -7,7 +7,7 @@
     LinkedIn        : linkedin.com/in/eliezerfuentes/
     GitHub          : github.com/enak223/
     Date Created    : 2025-08-24
-    Last Modified   : 2025-08-27
+    Last Modified   : 2026-11-27
     Version         : 1.0
     CVEs            : N/A
     Plugin IDs      : N/A
@@ -20,7 +20,7 @@
     PowerShell Ver. : 
 
 .USAGE
-    Put any usage instructions here.
+    Run in an elevated PowerShell window (Run as Administrator).
     Example syntax:
     PS C:\> .\WN10-AU-000500.ps1
 #>

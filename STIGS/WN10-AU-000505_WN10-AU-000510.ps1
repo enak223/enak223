@@ -1,17 +1,17 @@
 <#
 .SYNOPSIS
-    This PowerShell script ensures that the maximum size of the Windows Application event log is at least 32768 KB (32 MB).
+    This PowerShell script sets the Security event log to at least 1024000 KB (WN10-AU-000505) and the System event log to at least 32768 KB (WN10-AU-000510).
 
 .NOTES
     Author          : Eliezer Fuentes
     LinkedIn        : linkedin.com/in/eliezerfuentes/
     GitHub          : github.com/enak223/
     Date Created    : 2025-08-26
-    Last Modified   : 2025-08-27
+    Last Modified   : 2026-11-27
     Version         : 1.0
     CVEs            : N/A
     Plugin IDs      : N/A
-    STIG-ID         : WN10-AU-000510 & WN10-AU-000505
+    STIG-ID         : WN10-AU-000505, WN10-AU-000510
 
 .TESTED ON
     Date(s) Tested  : 
@@ -20,9 +20,9 @@
     PowerShell Ver. : 
 
 .USAGE
-    Put any usage instructions here.
+    Run in an elevated PowerShell window (Run as Administrator).
     Example syntax:
-    PS C:\> .\WN10-AU-000510 & WN10-AU-000505.ps1
+    PS C:\> .\WN10-AU-000505_WN10-AU-000510.ps1
 #>
 
 <#
