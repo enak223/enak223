@@ -14,6 +14,7 @@ Always learning, always shipping.
 ## Threat Hunting and Security Operations
 
 - **[Project Casefile](https://github.com/enak223/project-casefile)** — SOC automation pipeline: Wazuh → n8n → Claude L1 triage → DFIR-IRIS, with human-approved active response
+- **[Project Autopsy](https://github.com/enak223/project-autopsy)** — Agentic DFIR pipeline: Velociraptor endpoint forensics + Wazuh detection → Claude AI triage
 - **[Project GhostNet](https://github.com/enak223/project-ghostnet)** — Passive network baselining and anomaly detection with Zeek, Suricata, and OTX threat intel
 - **[Project NullByte](https://github.com/enak223/project-nullbyte)** — Attack surface discovery and AI-assisted CVE triage from live Nmap scans
 - **[Project Huntsman](https://github.com/enak223/huntsman)** — AI threat hunter agent: Wazuh + n8n + LLM benchmarking (Claude, Gemini, GPT)
@@ -26,10 +27,10 @@ Always learning, always shipping.
 
 ## Vulnerability Management
 
+- **[Vulnerability Management Program Implementation](https://github.com/enak223/vulnerability-management-program)** — End-to-end VM program on Windows Server 2025: policy, CAB, authenticated Tenable scans, **23 → 2 findings (−91%)**, and CIS firewall controls hardened through Group Policy
 - **[Project CVETriage](https://github.com/enak223/cvetriage)** — Automated CVE pipeline: Nmap → NVD API → OSV/CISA KEV enrichment → Claude triage → HTML report
 - **[Project Watchtower](https://github.com/enak223/project-watchtower)** — Enterprise vulnerability management with Tenable VM, Microsoft Sentinel, and Claude-assisted prioritization
 - **[Programmatic Vulnerability Remediations STIG (PowerShell and BASH)](https://github.com/enak223/enak223/tree/main/STIGS)** — Scripted DISA STIG remediations for Windows and Linux hosts
-- **[Vulnerability Management Program Implementation](https://github.com/enak223/vulnerability-management-program)** *(Work in progress)* — End-to-end VM program: policy, scanning cadence, remediation SLAs, and reporting
 
 
 
